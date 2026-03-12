@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather App</title>
+</head>
+<body>
+
+<h2>Weather App</h2>
+
+<div>
+	<h1>Enter Longitude and Latitude for Weather </h1>
+    <div>
+    	Longitude: <input type="text" name="longitude" id="longitude">
+        Latitude:  <input type="text" name="latitude" id="latitude">
+    </div>
+    
+    <button onclick="getWeather()">Click to Get Weather</button>
+</div>
+
+<p>Temperature: <span id="temp"></span> °C</p>
+<p>Wind Speed: <span id="wind"></span></p>
+
+<script>
+
+function getWeather(){
+	let long = document.getElementById("longitude").value;
+    let lat  = document.getElementById("latitude").value;
+    var weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current_weather=true`;
+    
+    alert(long + " " +lat);
+    alert(weatherUrl);
+    
+    fetch(weatherUrl)
+    .then(response => response.json())
+    .then(data => {
+    		
+    	document.getElementById("temp").innerText = data.current_weather.temperature;
+        document.getElementById("wind").innerText = data.current_weather.windspeed;
+        
+    })
+	.catch(error => console.log(error));
+}
+
+
+</script>
+
+</body>
+</html>
